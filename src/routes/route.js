@@ -1,23 +1,44 @@
 const express = require('express');
-const router = express.Router();///test-you
-//importing a custom module
-const xyz = require('../logger')
-//importing external package
-const underscore = require('underscore')
+const router = express.Router();
 
+const prob1 = require('../logger/logger')
+const prob2 = require('../util/helper')
+const prob3 = require("../validator/formatter")
+const lodash = require('lodash')
 router.get('/test-me', function (req, res) {
-    //Calling the components of a different custom module
-    console.log("Calling my function ",xyz.myFunction())
-    console.log("The value of the constant is ",xyz.myUrl)
-    //Trying to use an external package called underscore
-    let myArray = ['Akash', 'Pritesh', 'Sabiha']
-    let result = underscore.first(myArray)
-    console.log("The result of underscores examples api is : ", result)
-    
-    res.send('My first ever api!')
 
-    //To be tried what happens if we send multiple response
-    //res.send('My second api!')
+
+
+    //prob1.welcome()
+    //prob2.Date()
+    //prob2.Month()
+    //prob2.Info()
+    //prob3.trim("       functionup     ")
+    //prob3.lowKey("FUNCTIONUP")
+    //prob3.upKey("functionup")
+
+    //--->  4th problem     <--
+
+
+    const months=['Jan','Feb','March','April','May','June','July','August','Sept','Oct','Nov','Dec']
+    console.log(lodash.chunk(months,4))
+
+    const odd=[]
+    for(let i=0; i<10; i++){
+    odd.push(2 * i + 1)
+    }
+    console.log(lodash.tail(odd))
+
+    const a=['1']
+    const b=['1','2']
+    const c=['1','2','3']
+    console.log(lodash.union([...a],[...b],[...c]))
+
+
+    console.log(lodash.fromPairs([["horror","The Shining"],["drama","Titanic"],["thriller","Shutter Island"],["fantasy","Pans Labyrinth"]]))
+
+    
+    res.send('My second api!')
 });
 
 module.exports = router;
