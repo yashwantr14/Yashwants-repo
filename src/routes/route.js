@@ -2,7 +2,7 @@ const express = require('express');
 const abc = require('../introduction/intro')
 const router = express.Router();
 
-router.get('/test-me', function (req, res) {
+/*router.get('/test-me', function (req, res) {
     console.log('My batch is', abc.name)
     abc.printName()
     res.send('My second ever api!')
@@ -48,7 +48,16 @@ router.get('/myprofile/:name/:number',function(req,res){
     console.log('The required information are '+reqParam.name + ' contact details : '+reqParam.number)
     res.send('My First Route Path !')
 })
-    /*    ASSIGNMENT     */
+   
+
+
+
+
+
+
+
+
+/*    ASSIGNMENT     */
 
     // PROBLEM 1
 
@@ -58,7 +67,7 @@ router.get('/movies',function(req,res){
 })
 
 
-    //PROBLEM 2
+    //PROBLEM 2 & 3
 
 router.get('/movies/:indexNumber',function(req,res){
     const moviesArray=['Rang de basanti','The shining','Inception','Batman begins']
@@ -70,6 +79,8 @@ router.get('/movies/:indexNumber',function(req,res){
     }
 
 })
+
+    //PROBLEM 4
 
 router.get('/films',function(req,res){
     const objArray=[ {
