@@ -40,4 +40,53 @@ router.get('/student-details/:name', function(req, res){
     res.send('Dummy response')
 })
 
+
+
+
+router.get('/myprofile/:name/:number',function(req,res){
+    let reqParam=req.params
+    console.log('The required information are '+reqParam.name + ' contact details : '+reqParam.number)
+    res.send('My First Route Path !')
+})
+    /*    ASSIGNMENT     */
+
+    // PROBLEM 1
+
+router.get('/movies',function(req,res){
+    const moviesArray=['Rang de basanti','The shining','Inception','Batman begins']
+    res.send(moviesArray)
+})
+
+
+    //PROBLEM 2
+
+router.get('/movies/:indexNumber',function(req,res){
+    const moviesArray=['Rang de basanti','The shining','Inception','Batman begins']
+    let indexNumber=req.params.indexNumber
+    if(indexNumber<moviesArray.length){
+    res.send(moviesArray[indexNumber])
+    }else{
+        res.send('Enter valid index number')
+    }
+
+})
+
+router.get('/films',function(req,res){
+    const objArray=[ {
+        'id': 1,
+        'name': 'The Shining'
+       }, {
+        'id': 2,
+        'name': 'Incendies'
+       }, {
+        'id': 3,
+        'name': 'Rang de Basanti'
+       }, {
+        'id': 4,
+        'name': 'Finding Nemo'
+       }]
+
+    res.send(objArray)
+       
+})
 module.exports = router;
