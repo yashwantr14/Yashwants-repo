@@ -1,17 +1,16 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/sol1',function(req,res){
+router.get('/sol2',function(req,res){
     
-const arr=[1,2,3,5,6,7,8,9]
-let n=arr[arr.length-1]
-let sum1=n*(n+1)/2
-let sum2=0
-for(let i=0; i<arr.length; i++){
-    sum2+=arr[i]
-}
-let missingNumber=sum1-sum2
-console.log(missingNumber)
+const arr=[33,34,35,36,37,38,40]
+let sum1=arr.reduce((x,y)=>x+y)
+let n=arr.length+1
+let first=arr[0]
+let last=arr[arr.length-1]
+let sum2=n*(first+last)/2 // (n+1)*(first+last)/2
+let missingNumber=sum2-sum1
+
 res.send("The missing number is : " + missingNumber)
 })
 
