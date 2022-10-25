@@ -18,17 +18,18 @@ const getBooksInYear = async function(req,res){
 }
 
 const getParticularBooks = async function(req,res){
-    let condition =req.query.body
-    let allBooks=await BookModel.find()
+    let condition =req.body
+    let allBooks=await BookModel.find(condition)
+    res.send({dataRequired: allBooks})
 }
 
 const getXINRBooks = async function (req,res){
-    let allBooks = await BookModel.find({ $or : [{prices:{indianPrice :"100INR"}},{prices:{indianPrice:"200INR" }},{prices:{indianPrice:"500INR" }}]})
+    let allBooks = await BookModel.find({ $or : [{"prices.indianPrice" :"100INR"},{"prices.indianPrice" :"200INR"},{"prices.indianPrice" :"500INR"}]})
     res.send({dataRequired : allBooks})
 }
 
 const getRandomBooks = async function(req,res){
-    let allBooks = await BookModel.find({ $or : [{stockAvailable : true},{totalPages : { $gt : 500}}]})
+    let allBooks = await BookModel.find({$or:[{stockAvailable : true},{totalPages:{$gt:500}}]})
     res.send({dataRequired : allBooks})
 }
 
