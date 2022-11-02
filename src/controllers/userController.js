@@ -11,7 +11,15 @@ const basicCode= async function(req, res, next) {
     }
 
 const createUser= async function (req, res) {
-    // Remember that inside request object we already know multiple attributes
+     const body = req.body
+     const headers=req.headers
+     const user=await UserModel.create(body)
+     res.send({"User has been created" : user})
+}
+
+
+
+   /* // Remember that inside request object we already know multiple attributes
     // Examples - body(req.body), query(req.query), params(req.params)
     let body = req.body
     let headers = req.headers
@@ -27,8 +35,8 @@ const createUser= async function (req, res) {
     req.headers["year"] = 2022
     console.log("The updated headers attribute of this request is: ",req.headers)
     res.setHeader("message","Hi there!")
-    res.send({msg: "Hi"})
-}
+    res.send({msg: "Hi"})*/
+
 
 const getUsersData= async function (req, res) {
     let allUsers= await UserModel.find()
@@ -50,3 +58,4 @@ module.exports.getUsersData= getUsersData
 module.exports.basicCode= basicCode
 module.exports.dummyOne = dummyOne
 module.exports.dummyTwo = dummyTwo
+
