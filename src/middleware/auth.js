@@ -1,12 +1,22 @@
-const authenticate = function(req, req, next) {
-    //check the token in request header
-    //validate this token
+const jwt = require("jsonwebtoken")
 
-    next()
+const authenticate = function(req, req, next) {
+ let token=req.headers["x-auth-token"]
+ if(!token) return res.send("Mandatory Token is missing")
+ try {var decodedToken = jwt.verify(token, "Yashwant-jwt-secret-token")}
+ catch(error){return res.send({ status: false, msg: "Invalid Token" })}
+ if(decodedToken)
+ req.setheaders[decodedToken]=decodedToken
+ next()
 }
+
+
 
 
 const authorise = function(req, res, next) {
-    // comapre the logged in user's id and the id in request
+    let decodedToken=req.headers.decodedToken
+    if(decodedToken.userId!=req.params.userId) return res.send("ERROR : Unauthorized")
     next()
 }
+module.exports.authenticate=authenticate
+module.exports.authorise=authorise
