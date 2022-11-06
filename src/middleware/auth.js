@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken")
+const userModel = require("../models/userModel")
 
 const authenticate = function(req, res, next) {
  let token=req.headers["x-auth-token"]
@@ -6,17 +7,18 @@ const authenticate = function(req, res, next) {
  try {var decodedToken = jwt.verify(token, "Yashwant-jwt-secret-token")}
  catch(error){return res.send({ status: false, msg: "Invalid Token" })}
  if(decodedToken)
- req.header("x-auth-token",decodedToken)
+ req.headers["x-auth-token"]=decodedToken
  next()
 }
 
 
 
 
-const authorise = function(req, res, next) {
+const authorise = async function(req, res, next) {
     let decodedToken=req.headers['x-auth-token']
-    console.log(decodedToken)
-    if(decodedToken.emailId!=req.params.userId) return res.send("ERROR : Unauthorized")
+    let userId=req.params.userId
+    let user = await userModel.findById(userId)
+    if(decodedToken.emailId!=user.emailId) return res.send("ERROR : Unauthorized")
     next()
 }
 module.exports.authenticate=authenticate

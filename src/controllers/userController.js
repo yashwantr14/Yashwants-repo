@@ -14,28 +14,32 @@ const loginUser=async function(req,res){
    let user=await userModel.findOne({emailId:dataProvided.emailId, password:dataProvided.password})
 
    if(!user) return res.send("ERROR : Email or Password id incorrect")
-  
    let token=jwt.sign(dataProvided, "Yashwant-jwt-secret-token")
    res.send({status:true, jwtToken: token})
 }
 
 const fetchDetails=async function(req,res){
   let userId=req.params.userId
-  let user=await findById(userId)
+  let user=await userModel.findById(userId)
   if(!user) return res.send("ERROR : User not found")
   res.send({status : true, user:user})
 }
 const updateUser=async function(req,res){
 let userId=req.params.userId
+let user = await userModel.findById(userId)
+if(!user) return res.send("User not found")
 let toBeUpdated=req.body
-let updatedUser=await userModel.findByIdAndUpdate({userId},{toBeUpdated},{new : true})
+
+let updatedUser=await userModel.findByIdAndUpdate(userId, toBeUpdated,{new : true})
 res.send({status : true, user:updatedUser})
 }
 
 const deleteUser=async function(req,res){
   let userId=req.params.userId
-  let updatedUser=await userModel.findByIdAndUpdate({$set : {isDeleted : true}},{new : true})
-  res.send({status : true , updatedUser :updateUser })
+  let user = await userModel.findById(userId)
+  if(!user) return res.send("User not found")
+  let updatedUser=await userModel.findByIdAndUpdate(userId, {$set : {isDeleted : true}},{new : true})
+  res.send({status : true , updatedUser :updatedUser })
 }
 module.exports.createUser = createUser
 module.exports.loginUser = loginUser
